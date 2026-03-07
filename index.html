@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jack Pike — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0b0d10;
+  --bg2:     #111318;
+  --bg3:     #181c23;
+  --border:  #1f2430;
+  --border2: #2a3142;
+  --green:   #4ade80;
+  --blue:    #60a5fa;
+  --amber:   #fbbf24;
+  --red:     #f87171;
+  --purple:  #c084fc;
+  --text:    #dde3ed;
+  --muted:   #5a6680;
+  --dim:     #2e3a50;
+  --mono:    'IBM Plex Mono', monospace;
+  --display: 'DM Serif Display', serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 56px;
+  background: rgba(11,13,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.05em;
+}
+
+.nav-logo span { color: var(--green); }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 80px 80px;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--green);
+}
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1.0;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.hero-title {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+.hero-bio {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  border-left: 2px solid var(--border2);
+  padding-left: 20px;
+  margin-bottom: 48px;
+}
+
+.hero-bio strong { color: var(--text); font-weight: 400; }
+.hero-bio a { color: var(--green); text-decoration: none; }
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #0b0d10;
+  font-weight: 600;
+}
+
+.btn-primary:hover { background: #86efac; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+}
+
+.btn-ghost:hover { color: var(--text); border-color: var(--dim); }
+
+/* Floating grid lines on hero bg */
+#hero::after {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── SECTION COMMON ── */
+.section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.section-num {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.15em;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.section-title em { font-style: italic; color: var(--muted); }
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.about-text p strong { color: var(--text); font-weight: 400; }
+
+.about-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fact {
+  display: flex;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  gap: 16px;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+
+.fact:hover { border-color: var(--border2); }
+
+.fact-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  min-width: 80px;
+  padding-top: 2px;
+}
+
+.fact-value {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.fact-value .accent { color: var(--green); }
+
+/* ── PROJECTS ── */
+.projects-intro {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 560px;
+  margin-bottom: 48px;
+  line-height: 1.8;
+}
+
+.project-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  margin-bottom: 2px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.project-card:hover { border-color: var(--border2); }
+.project-card.featured { border-left: 3px solid var(--green); }
+.project-card.featured2 { border-left: 3px solid var(--blue); }
+.project-card.featured3 { border-left: 3px solid var(--amber); }
+
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 20px;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.project-header-left { flex: 1; }
+
+.project-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.ptag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.ptag-green  { background: rgba(74,222,128,0.1);  color: var(--green);  border: 1px solid rgba(74,222,128,0.2); }
+.ptag-blue   { background: rgba(96,165,250,0.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,0.2); }
+.ptag-amber  { background: rgba(251,191,36,0.1);  color: var(--amber);  border: 1px solid rgba(251,191,36,0.2); }
+.ptag-purple { background: rgba(192,132,252,0.1); color: var(--purple); border: 1px solid rgba(192,132,252,0.2); }
+.ptag-red    { background: rgba(248,113,113,0.1); color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
+
+.project-name {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+.project-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.project-year {
+  font-size: 11px;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.project-toggle {
+  font-size: 11px;
+  color: var(--dim);
+  transition: transform 0.2s, color 0.2s;
+  display: block;
+}
+
+.project-card.open .project-toggle {
+  transform: rotate(180deg);
+  color: var(--green);
+}
+
+.project-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+
+.project-card.open .project-body { display: block; }
+
+.project-insight {
+  background: var(--bg3);
+  padding: 14px 24px;
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pi-label {
+  font-size: 10px;
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.pi-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.pi-text strong { color: var(--text); font-weight: 400; }
+
+.project-detail {
+  padding: 20px 24px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.detail-block h4 {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.detail-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-block li {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.detail-block li::before {
+  content: '→';
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* ── CC SECTION ── */
+.cc-intro {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  border-left: 2px solid var(--border2);
+  padding-left: 16px;
+}
+
+.cc-intro strong { color: var(--text); font-weight: 400; }
+
+.cards { display: grid; gap: 2px; }
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.card:hover { border-color: var(--border2); }
+.card.active { border-color: var(--green); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  gap: 16px;
+  user-select: none;
+}
+
+.card-header-left { display: flex; align-items: center; gap: 14px; }
+
+.file-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.card-desc  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.card-year  { font-size: 11px; color: var(--dim); flex-shrink: 0; }
+
+.card-toggle {
+  font-size: 11px; color: var(--dim); flex-shrink: 0; transition: transform 0.2s;
+}
+
+.card.active .card-toggle { transform: rotate(180deg); color: var(--green); }
+
+.card-body { display: none; border-top: 1px solid var(--border); }
+.card.active .card-body { display: block; }
+
+.insight {
+  background: var(--bg3);
+  padding: 12px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.insight-label {
+  color: var(--amber);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.insight-text { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.insight-text strong { color: var(--text); font-weight: 400; }
+
+.code-wrap { position: relative; background: #070910; }
+
+.code-filename {
+  padding: 8px 20px;
+  font-size: 11px;
+  color: var(--dim);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-filename span { color: var(--muted); }
+
+pre {
+  padding: 20px;
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.75;
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dim) transparent;
+}
+
+pre::-webkit-scrollbar { width: 4px; height: 4px; }
+pre::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+
+.kw  { color: #93c5fd; }
+.fn  { color: #86efac; }
+.str { color: #fde68a; }
+.cmt { color: #2e3a50; font-style: italic; }
+.num { color: #f9a8d4; }
+.op  { color: #94a3b8; }
+
+.spotlight {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  padding: 28px 28px 28px 24px;
+  margin-top: 40px;
+}
+
+.spotlight-label {
+  font-size: 11px; color: var(--green);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+}
+
+.spotlight h3 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.spotlight p {
+  color: var(--muted); font-size: 12px; line-height: 1.8; max-width: 600px;
+}
+
+.spotlight p strong { color: var(--text); font-weight: 400; }
+
+.api-functions {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+}
+
+.api-fn {
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 5px 12px; font-size: 12px; border-radius: 2px;
+}
+
+.api-fn .fn-name { color: var(--green); }
+.api-fn .fn-args { color: var(--dim); }
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-text p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.contact-text strong { color: var(--text); font-weight: 400; }
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-link:hover { border-color: var(--border2); background: var(--bg3); }
+
+.cl-platform {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  min-width: 72px;
+}
+
+.cl-value { font-size: 13px; color: var(--text); }
+.cl-arrow { margin-left: auto; color: var(--dim); font-size: 11px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+footer span { color: var(--dim); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: var(--green);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+.hero-eyebrow { animation: fadeUp 0.5s ease both; }
+.hero-name    { animation: fadeUp 0.5s ease 0.1s both; }
+.hero-title   { animation: fadeUp 0.5s ease 0.2s both; }
+.hero-bio     { animation: fadeUp 0.5s ease 0.3s both; }
+.hero-cta     { animation: fadeUp 0.5s ease 0.4s both; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  #hero { padding: 100px 24px 60px; }
+  #hero::after { display: none; }
+  nav { padding: 0 24px; }
+  .nav-links { gap: 20px; }
+  .section { padding: 72px 24px; }
+  .about-grid, .contact-grid, .project-detail { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">jack<span>.</span>pike</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#origins">origins</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">CS Student · BYU–Hawaii · Dec 2026</div>
+  <h1 class="hero-name">Jack <em>Pike</em><span class="cursor"></span></h1>
+  <p class="hero-title">Software Engineer &nbsp;/&nbsp; Systems Thinker &nbsp;/&nbsp; Builder</p>
+  <p class="hero-bio">
+    I've been building things with code since I was 14 —
+    not because I was told to, but because I kept running into problems that needed solving.
+    I'm a <strong>CS senior at BYU–Hawaii</strong>, graduating December 2026,
+    currently looking for a summer internship where I can do the same thing at scale.
+    I'm especially drawn to teams working on <strong>systems that connect people to information</strong> —
+    the kind of work where the stakes are real.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About <em>me</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I grew up in <strong>Tooele, Utah</strong>, spent two years serving an LDS mission,
+          and came back to finish my degree with a clearer sense of why I'm doing it.
+          I'm not just here for the credential — I genuinely find this stuff fascinating.
+          Formal language theory, systems design, how abstractions layer on top of each other
+          until something complex feels simple.
+        </p>
+        <p>
+          I work two jobs alongside school — <strong>CS tutor</strong> for the department and
+          part-time at McDonald's — because Laʻie is expensive and my wife Britlyn and I are
+          making it work. That context shapes how I think about software: I care about things
+          that actually work for real people in real constraints.
+        </p>
+        <p>
+          Outside of code I'm interested in language — how it carries power, how it shifts
+          meaning. I've been slowly getting my Spanish back. I take notes obsessively in Obsidian.
+          I think networked knowledge and genealogical research have more in common than most people realize.
+        </p>
+      </div>
+
+      <div class="about-facts reveal">
+        <div class="fact">
+          <div class="fact-label">Currently</div>
+          <div class="fact-value">CS Senior @ <span class="accent">BYU–Hawaii</span> · Winter 2026</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Graduating</div>
+          <div class="fact-value">December 2026</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Courses</div>
+          <div class="fact-value">IT 327 · CS 301 · CS 210 · CS 320</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Roles</div>
+          <div class="fact-value">CS Dept. Tutor · McDonald's</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Interests</div>
+          <div class="fact-value">Systems design · Spanish · Obsidian / PKM</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Location</div>
+          <div class="fact-value">Laʻie, Hawaii</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Seeking</div>
+          <div class="fact-value"><span class="accent">Summer 2026 internship</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Recent <em>projects</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p class="projects-intro reveal">
+      A mix of coursework and self-directed builds. The pattern is the same in all of them:
+      find something that doesn't work well, understand why, build something better.
+    </p>
+
+    <!-- AI Grading Portal -->
+    <div class="project-card featured reveal" onclick="toggleProject(this)">
+      <div class="project-header">
+        <div class="project-header-left">
+          <div class="project-tag-row">
+            <span class="ptag ptag-green">Side Project</span>
+            <span class="ptag ptag-blue">AI Integration</span>
+            <span class="ptag ptag-amber">Canvas LMS</span>
+            <span class="ptag ptag-purple">Ruby on Rails</span>
+          </div>
+          <div class="project-name">AI Grading Portal</div>
+          <div class="project-desc">
+            An AI-assisted grading workflow tool integrated with Canvas LMS —
+            built to solve a real problem I watched CS tutors deal with every week.
+          </div>
+        </div>
+        <div class="project-meta">
+          <span class="project-year">2025–2026</span>
+          <span class="project-toggle">▼</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-insight">
+          <div class="pi-label">WHY IT EXISTS</div>
+          <div class="pi-text">
+            Grading student submissions is slow, inconsistent, and mentally taxing.
+            This tool pulls assignments from <strong>Canvas via API</strong>, runs them through an
+            AI model with rubric context, and surfaces a draft score + feedback for the instructor to
+            review and approve. The human stays in the loop — the AI handles the first pass.
+          </div>
+        </div>
+        <div class="project-detail">
+          <div class="detail-block">
+            <h4>What it does</h4>
+            <ul>
+              <li>Authenticates with Canvas LMS via OAuth</li>
+              <li>Fetches student submissions per assignment</li>
+              <li>Sends submissions + rubric to AI model</li>
+              <li>Returns draft grade + written feedback</li>
+              <li>Instructor reviews, edits, and posts back to Canvas</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Stack</h4>
+            <ul>
+              <li>Ruby on Rails backend</li>
+              <li>Canvas LMS REST API</li>
+              <li>AI model integration</li>
+              <li>PostgreSQL</li>
+              <li>Deployed on Render</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enrollr -->
+    <div class="project-card featured2 reveal" onclick="toggleProject(this)">
+      <div class="project-header">
+        <div class="project-header-left">
+          <div class="project-tag-row">
+            <span class="ptag ptag-blue">Class Project · CS 401</span>
+            <span class="ptag ptag-purple">Ruby on Rails</span>
+            <span class="ptag ptag-red">Full Stack</span>
+          </div>
+          <div class="project-name">Enrollr</div>
+          <div class="project-desc">
+            A student enrollment system built from scratch in Ruby on Rails —
+            modeled after real university course registration flows.
+          </div>
+        </div>
+        <div class="project-meta">
+          <span class="project-year">2025</span>
+          <span class="project-toggle">▼</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-insight">
+          <div class="pi-label">WHAT I BUILT</div>
+          <div class="pi-text">
+            Full CRUD application handling <strong>students, courses, sections, and enrollment records</strong>
+            with role-based access for admins vs. students. Designed the data model, built the API layer,
+            and wired up the frontend views — end to end.
+          </div>
+        </div>
+        <div class="project-detail">
+          <div class="detail-block">
+            <h4>Features</h4>
+            <ul>
+              <li>Student and admin authentication</li>
+              <li>Course catalog with section management</li>
+              <li>Enrollment / drop / waitlist logic</li>
+              <li>Prerequisite enforcement</li>
+              <li>Admin dashboard with reporting</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Stack</h4>
+            <ul>
+              <li>Ruby on Rails (MVC)</li>
+              <li>PostgreSQL</li>
+              <li>Devise for auth</li>
+              <li>ERB + Tailwind</li>
+              <li>RSpec test suite</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ORIGINS / COMPUTERCRAFT -->
+<section id="origins">
+  <div class="section">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Where it <em>started</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p class="cc-intro reveal">
+      In 2016, I ran a modded Minecraft server. A dozen independent mods — none of which talked to each other.
+      So I built a system to connect them: <strong>monitor dashboards for reactor output, ME storage status,
+      plugin tutorials with touch-navigable pages</strong>, and a shared Lua library distributed across
+      in-game computers via pastebin at runtime. I was 14. I didn't know what software engineering was.
+      I was just solving problems.
+    </p>
+
+    <div class="cards">
+      <div class="card reveal" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="file-dot" style="background:#4ade80"></div>
+            <div>
+              <div class="card-title">PikeLib</div>
+              <div class="card-desc">Shared utility library — distributed via pastebin at runtime</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="card-year">2016</div>
+            <div class="card-toggle">▼</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="insight">
+            <div class="insight-label">WHY IT MATTERS</div>
+            <div class="insight-text">
+              Rather than copy-pasting utility functions across every script, I extracted them into a
+              <strong>shared library with a consistent API</strong>. Scripts download it from pastebin at startup —
+              primitive package management before I knew that term existed.
+            </div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-filename">📄 <span>PikeLib.lua</span> &nbsp;·&nbsp; pastebin: nXvVUSuw</div>
+<pre><span class="cmt">-- Auto-detect: no hardcoded peripheral names</span>
+<span class="kw">function</span> <span class="fn">fetchPeripheral</span>()
+    <span class="kw">local</span> names = peripheral.getNames()
+    <span class="kw">for</span> i, name <span class="kw">in</span> <span class="fn">pairs</span>(names) <span class="kw">do</span>
+        <span class="kw">if</span> peripheral.getType(name) <span class="op">==</span> <span class="str">"monitor"</span> <span class="kw">then</span>
+            <span class="kw">return</span> peripheral.wrap(name)
+        <span class="kw">end</span>
+    <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="cmt">-- Toggle redstone output (on/off)</span>
+<span class="kw">function</span> <span class="fn">toggleRedstone</span>(side)
+    <span class="kw">if</span> redstone.getOutput(side) <span class="kw">then</span>
+        redstone.setAnalogOutput(side, <span class="num">0</span>)
+    <span class="kw">else</span>
+        redstone.setAnalogOutput(side, <span class="num">15</span>)
+    <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="cmt">-- Draw a full-width colored bar at a given y position</span>
+<span class="kw">function</span> <span class="fn">drawBars</span>(color, yPos, mon)
+    monX, monY = mon.getSize()
+    mon.setBackgroundColor(color)
+    mon.setCursorPos(<span class="num">1</span>, yPos)
+    mon.write(<span class="fn">string.rep</span>(<span class="str">" "</span>, monX))
+<span class="kw">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="file-dot" style="background:#60a5fa"></div>
+            <div>
+              <div class="card-title">Turbine Control</div>
+              <div class="card-desc">Live energy dashboard for Big Reactors turbine with on/off toggle</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="card-year">2016</div>
+            <div class="card-toggle">▼</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="insight">
+            <div class="insight-label">WHY IT MATTERS</div>
+            <div class="insight-text">
+              Polled live peripheral data every second — RF/tick, rotor RPM, steam buffer.
+              A <strong>second computer handled touch input independently</strong>,
+              toggling the turbine by reading x/y coordinates against the button region.
+            </div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-filename">📄 <span>Turbine_Control.lua</span></div>
+<pre><span class="kw">local function</span> <span class="fn">getData</span>()
+  RFStored = <span class="fn">math.floor</span>(turb.getEnergyStored())
+  RF       = <span class="fn">math.floor</span>(turb.getEnergyProducedLastTick())
+  Rotor    = <span class="fn">math.floor</span>(turb.getRotorSpeed())
+  poll     = turb.getActive()
+<span class="kw">end</span>
+
+<span class="kw">local function</span> <span class="fn">homepage</span>()
+  <span class="kw">if</span> poll <span class="op">==</span> <span class="kw">true</span> <span class="kw">then</span>
+    <span class="fn">drawMenus</span>(colors.blue)
+    <span class="fn">writeText</span>(<span class="num">8</span>, <span class="num">2</span>, colors.black, colors.green, <span class="str">"ONLINE"</span>)
+  <span class="kw">else</span>
+    <span class="fn">drawMenus</span>(colors.gray)
+    <span class="fn">writeText</span>(<span class="num">8</span>, <span class="num">2</span>, colors.black, colors.red, <span class="str">"OFFLINE"</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span>
+  <span class="fn">getData</span>() <span class="fn">homepage</span>() sleep(<span class="num">1</span>)
+<span class="kw">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="file-dot" style="background:#c084fc"></div>
+            <div>
+              <div class="card-title">ME Storage Monitor</div>
+              <div class="card-desc">Applied Energistics 2 — live bytes used, energy level, auto peripheral discovery</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="card-year">2016</div>
+            <div class="card-toggle">▼</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="insight">
+            <div class="insight-label">WHY IT MATTERS</div>
+            <div class="insight-text">
+              Used <strong>automatic peripheral discovery</strong> — iterating all connected peripherals
+              to find the ME controller by type rather than hardcoding names. Portable across setups
+              with zero config changes.
+            </div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-filename">📄 <span>ME_Status.lua</span></div>
+<pre><span class="kw">function</span> <span class="fn">getControl</span>()
+  <span class="kw">local</span> names = peripheral.getNames()
+  <span class="kw">for</span> i, name <span class="kw">in</span> <span class="fn">pairs</span>(names) <span class="kw">do</span>
+    <span class="kw">if</span> peripheral.getType(name) <span class="op">==</span>
+       <span class="str">"appeng_me_tilecontroller"</span> <span class="kw">then</span>
+      <span class="kw">return</span> peripheral.wrap(name)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span>
+  BUsed  = control.getUnusedBytes()
+  BTotal = control.getTotalBytes()
+  BPct   = <span class="fn">math.floor</span>((BUsed<span class="op">/</span>BTotal)<span class="op">*</span><span class="num">100</span>)
+  mon.write(<span class="str">"Storage: "</span><span class="op">..</span>BPct<span class="op">..</span><span class="str">"%"</span>)
+  sleep(<span class="num">1</span>)
+<span class="kw">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="file-dot" style="background:#fbbf24"></div>
+            <div>
+              <div class="card-title">Plugin Tutorial Kiosks</div>
+              <div class="card-desc">Multi-page touch-navigable info displays for Towny and Jobs</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="card-year">2016</div>
+            <div class="card-toggle">▼</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="insight">
+            <div class="insight-label">WHY IT MATTERS</div>
+            <div class="insight-text">
+              A secondary monitor acted as a <strong>navigation sidebar</strong>, listening for touch
+              events and routing between pages. Each page was a stateless render function —
+              essentially components before I knew what components were.
+            </div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-filename">📄 <span>townyinfo2.lua</span></div>
+<pre><span class="kw">function</span> <span class="fn">page1</span>()
+  m.clearScreen(colors.black, colors.black)
+  m.writeText(<span class="num">2</span>, <span class="num">3</span>, colors.black, colors.red, <span class="str">"What is it?"</span>)
+  <span class="cmt">-- ... render content</span>
+
+  mon2.write(<span class="str">"------>"</span>) <span class="cmt">-- sidebar nav arrow</span>
+
+  event, side, x, y = os.pullEvent(<span class="str">"monitor_touch"</span>)
+  <span class="kw">if</span> side <span class="op">==</span> <span class="str">"front"</span> <span class="kw">then</span> <span class="fn">page2</span>() <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">function</span> <span class="fn">page2</span>()
+  m.clearScreen(colors.black, colors.black)
+  m.writeText(<span class="num">2</span>, <span class="num">2</span>, colors.black, colors.red, <span class="str">"Commands:"</span>)
+  <span class="cmt">-- ... render commands</span>
+
+  mon2.write(<span class="str">"&lt;------"</span>) <span class="cmt">-- arrow flips on page 2</span>
+
+  event, side, x, y = os.pullEvent(<span class="str">"monitor_touch"</span>)
+  <span class="kw">if</span> side <span class="op">==</span> <span class="str">"monitor_4"</span> <span class="kw">then</span> <span class="fn">page1</span>() <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="fn">page1</span>()</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spotlight reveal">
+      <div class="spotlight-label">The Through Line</div>
+      <h3>The instinct to abstract</h3>
+      <p>
+        The most telling artifact isn't any individual script — it's that I built <strong>PikeLib</strong> at all.
+        When I noticed I was rewriting the same monitor-drawing code in every file, I pulled it into a
+        shared module with a consistent API. The idea that <strong>repeated code is a problem to be solved</strong>
+        wasn't taught to me. I felt it. That instinct has followed me into every project since.
+      </p>
+      <div class="api-functions">
+        <div class="api-fn"><span class="fn-name">fetchPeripheral</span><span class="fn-args">()</span></div>
+        <div class="api-fn"><span class="fn-name">writeText</span><span class="fn-args">(x, y, bg, fg, text, mon)</span></div>
+        <div class="api-fn"><span class="fn-name">drawBars</span><span class="fn-args">(color, yPos, mon)</span></div>
+        <div class="api-fn"><span class="fn-name">clearScreen</span><span class="fn-args">(color, ecolor, mon)</span></div>
+        <div class="api-fn"><span class="fn-name">toggleRedstone</span><span class="fn-args">(side)</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Get in <em>touch</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-text reveal">
+        <p>
+          I'm actively looking for a <strong>summer 2026 internship</strong>.
+          If you're working on something that connects people to information —
+          genealogy, education, knowledge systems, anything in that orbit —
+          I'd genuinely love to talk.
+        </p>
+        <p>
+          I'm also just a person. If you have a question, want to compare notes
+          on Obsidian workflows, or need someone to explain the subjunctive,
+          reach out.
+        </p>
+      </div>
+
+      <div class="contact-links reveal">
+        <a href="mailto:your@email.com" class="contact-link">
+          <div class="cl-platform">Email</div>
+          <div class="cl-value">your@email.com</div>
+          <div class="cl-arrow">↗</div>
+        </a>
+        <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+          <div class="cl-platform">GitHub</div>
+          <div class="cl-value">github.com/yourusername</div>
+          <div class="cl-arrow">↗</div>
+        </a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">
+          <div class="cl-platform">LinkedIn</div>
+          <div class="cl-value">linkedin.com/in/yourusername</div>
+          <div class="cl-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Jack Pike · BYU–Hawaii · CS 2026</span>
+  <span>Built by hand.</span>
+</footer>
+
+<script>
+  // Project card toggle
+  function toggleProject(card) {
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.project-card').forEach(c => c.classList.remove('open'));
+    if (!wasOpen) card.classList.add('open');
+  }
+
+  // CC card toggle
+  function toggleCard(card) {
+    const wasActive = card.classList.contains('active');
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    if (!wasActive) card.classList.add('active');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
