@@ -3,727 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Jack Pike — Software Engineer</title>
+<title>Jackson Pike — Software Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stylesheets/main.css">
 
-:root {
-  --bg:      #0b0d10;
-  --bg2:     #111318;
-  --bg3:     #181c23;
-  --border:  #1f2430;
-  --border2: #2a3142;
-  --green:   #4ade80;
-  --blue:    #60a5fa;
-  --amber:   #fbbf24;
-  --red:     #f87171;
-  --purple:  #c084fc;
-  --text:    #dde3ed;
-  --muted:   #5a6680;
-  --dim:     #2e3a50;
-  --mono:    'IBM Plex Mono', monospace;
-  --display: 'DM Serif Display', serif;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* ── NOISE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.4;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 56px;
-  background: rgba(11,13,16,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-logo {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.05em;
-}
-
-.nav-logo span { color: var(--green); }
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--text); }
-
-/* ── HERO ── */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 120px 80px 80px;
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.hero-eyebrow {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  width: 32px;
-  height: 1px;
-  background: var(--green);
-}
-
-.hero-name {
-  font-family: var(--display);
-  font-size: clamp(3.5rem, 8vw, 6.5rem);
-  font-weight: 400;
-  line-height: 1.0;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.hero-name em {
-  font-style: italic;
-  color: var(--green);
-}
-
-.hero-title {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: var(--muted);
-  font-weight: 300;
-  margin-bottom: 40px;
-  letter-spacing: 0.02em;
-}
-
-.hero-bio {
-  max-width: 520px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-  border-left: 2px solid var(--border2);
-  padding-left: 20px;
-  margin-bottom: 48px;
-}
-
-.hero-bio strong { color: var(--text); font-weight: 400; }
-.hero-bio a { color: var(--green); text-decoration: none; }
-
-.hero-cta {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  font-family: var(--mono);
-  font-size: 12px;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.2s;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary {
-  background: var(--green);
-  color: #0b0d10;
-  font-weight: 600;
-}
-
-.btn-primary:hover { background: #86efac; }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--border2);
-}
-
-.btn-ghost:hover { color: var(--text); border-color: var(--dim); }
-
-/* Floating grid lines on hero bg */
-#hero::after {
-  content: '';
-  position: absolute;
-  right: -100px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 500px;
-  height: 500px;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-/* ── SECTION COMMON ── */
-.section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 100px 40px;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-.section-num {
-  font-size: 11px;
-  color: var(--green);
-  letter-spacing: 0.15em;
-}
-
-.section-title {
-  font-family: var(--display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 400;
-  color: #fff;
-  line-height: 1.1;
-}
-
-.section-title em { font-style: italic; color: var(--muted); }
-
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ── ABOUT ── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-.about-text p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-  margin-bottom: 16px;
-}
-
-.about-text p strong { color: var(--text); font-weight: 400; }
-
-.about-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.fact {
-  display: flex;
-  padding: 14px 16px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  gap: 16px;
-  align-items: flex-start;
-  transition: border-color 0.2s;
-}
-
-.fact:hover { border-color: var(--border2); }
-
-.fact-label {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  min-width: 80px;
-  padding-top: 2px;
-}
-
-.fact-value {
-  font-size: 12px;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.fact-value .accent { color: var(--green); }
-
-/* ── PROJECTS ── */
-.projects-intro {
-  color: var(--muted);
-  font-size: 13px;
-  max-width: 560px;
-  margin-bottom: 48px;
-  line-height: 1.8;
-}
-
-.project-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  margin-bottom: 2px;
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-
-.project-card:hover { border-color: var(--border2); }
-.project-card.featured { border-left: 3px solid var(--green); }
-.project-card.featured2 { border-left: 3px solid var(--blue); }
-.project-card.featured3 { border-left: 3px solid var(--amber); }
-
-.project-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 24px 24px 20px;
-  gap: 20px;
-  cursor: pointer;
-}
-
-.project-header-left { flex: 1; }
-
-.project-tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.ptag {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 2px;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-}
-
-.ptag-green  { background: rgba(74,222,128,0.1);  color: var(--green);  border: 1px solid rgba(74,222,128,0.2); }
-.ptag-blue   { background: rgba(96,165,250,0.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,0.2); }
-.ptag-amber  { background: rgba(251,191,36,0.1);  color: var(--amber);  border: 1px solid rgba(251,191,36,0.2); }
-.ptag-purple { background: rgba(192,132,252,0.1); color: var(--purple); border: 1px solid rgba(192,132,252,0.2); }
-.ptag-red    { background: rgba(248,113,113,0.1); color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
-
-.project-name {
-  font-family: var(--display);
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 6px;
-  line-height: 1.2;
-}
-
-.project-desc {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-  max-width: 500px;
-}
-
-.project-meta {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.project-year {
-  font-size: 11px;
-  color: var(--dim);
-  display: block;
-  margin-bottom: 8px;
-}
-
-.project-toggle {
-  font-size: 11px;
-  color: var(--dim);
-  transition: transform 0.2s, color 0.2s;
-  display: block;
-}
-
-.project-card.open .project-toggle {
-  transform: rotate(180deg);
-  color: var(--green);
-}
-
-.project-body {
-  display: none;
-  border-top: 1px solid var(--border);
-}
-
-.project-card.open .project-body { display: block; }
-
-.project-insight {
-  background: var(--bg3);
-  padding: 14px 24px;
-  display: flex;
-  gap: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.pi-label {
-  font-size: 10px;
-  color: var(--amber);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  flex-shrink: 0;
-  padding-top: 2px;
-}
-
-.pi-text {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.pi-text strong { color: var(--text); font-weight: 400; }
-
-.project-detail {
-  padding: 20px 24px 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.detail-block h4 {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.detail-block ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.detail-block li {
-  font-size: 12px;
-  color: var(--muted);
-  display: flex;
-  gap: 8px;
-  line-height: 1.5;
-}
-
-.detail-block li::before {
-  content: '→';
-  color: var(--green);
-  flex-shrink: 0;
-}
-
-/* ── CC SECTION ── */
-.cc-intro {
-  color: var(--muted);
-  font-size: 13px;
-  max-width: 560px;
-  line-height: 1.8;
-  margin-bottom: 48px;
-  border-left: 2px solid var(--border2);
-  padding-left: 16px;
-}
-
-.cc-intro strong { color: var(--text); font-weight: 400; }
-
-.cards { display: grid; gap: 2px; }
-
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: border-color 0.2s;
-  cursor: pointer;
-}
-
-.card:hover { border-color: var(--border2); }
-.card.active { border-color: var(--green); }
-
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  gap: 16px;
-  user-select: none;
-}
-
-.card-header-left { display: flex; align-items: center; gap: 14px; }
-
-.file-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-.card-title { font-size: 13px; font-weight: 600; color: var(--text); }
-.card-desc  { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.card-year  { font-size: 11px; color: var(--dim); flex-shrink: 0; }
-
-.card-toggle {
-  font-size: 11px; color: var(--dim); flex-shrink: 0; transition: transform 0.2s;
-}
-
-.card.active .card-toggle { transform: rotate(180deg); color: var(--green); }
-
-.card-body { display: none; border-top: 1px solid var(--border); }
-.card.active .card-body { display: block; }
-
-.insight {
-  background: var(--bg3);
-  padding: 12px 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.insight-label {
-  color: var(--amber);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.insight-text { color: var(--muted); font-size: 12px; line-height: 1.6; }
-.insight-text strong { color: var(--text); font-weight: 400; }
-
-.code-wrap { position: relative; background: #070910; }
-
-.code-filename {
-  padding: 8px 20px;
-  font-size: 11px;
-  color: var(--dim);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.code-filename span { color: var(--muted); }
-
-pre {
-  padding: 20px;
-  overflow-x: auto;
-  font-size: 12px;
-  line-height: 1.75;
-  max-height: 320px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--dim) transparent;
-}
-
-pre::-webkit-scrollbar { width: 4px; height: 4px; }
-pre::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
-
-.kw  { color: #93c5fd; }
-.fn  { color: #86efac; }
-.str { color: #fde68a; }
-.cmt { color: #2e3a50; font-style: italic; }
-.num { color: #f9a8d4; }
-.op  { color: #94a3b8; }
-
-.spotlight {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--green);
-  padding: 28px 28px 28px 24px;
-  margin-top: 40px;
-}
-
-.spotlight-label {
-  font-size: 11px; color: var(--green);
-  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
-}
-
-.spotlight h3 {
-  font-family: var(--display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 12px;
-}
-
-.spotlight p {
-  color: var(--muted); font-size: 12px; line-height: 1.8; max-width: 600px;
-}
-
-.spotlight p strong { color: var(--text); font-weight: 400; }
-
-.api-functions {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
-}
-
-.api-fn {
-  background: var(--bg); border: 1px solid var(--border);
-  padding: 5px 12px; font-size: 12px; border-radius: 2px;
-}
-
-.api-fn .fn-name { color: var(--green); }
-.api-fn .fn-args { color: var(--dim); }
-
-/* ── CONTACT ── */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-.contact-text p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-  margin-bottom: 16px;
-}
-
-.contact-text strong { color: var(--text); font-weight: 400; }
-
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.contact-link:hover { border-color: var(--border2); background: var(--bg3); }
-
-.cl-platform {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  min-width: 72px;
-}
-
-.cl-value { font-size: 13px; color: var(--text); }
-.cl-arrow { margin-left: auto; color: var(--dim); font-size: 11px; }
-
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 32px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-footer span { color: var(--dim); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; } 50% { opacity: 0; }
-}
-
-.cursor {
-  display: inline-block;
-  width: 3px;
-  height: 1em;
-  background: var(--green);
-  vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
-  margin-left: 4px;
-}
-
-.hero-eyebrow { animation: fadeUp 0.5s ease both; }
-.hero-name    { animation: fadeUp 0.5s ease 0.1s both; }
-.hero-title   { animation: fadeUp 0.5s ease 0.2s both; }
-.hero-bio     { animation: fadeUp 0.5s ease 0.3s both; }
-.hero-cta     { animation: fadeUp 0.5s ease 0.4s both; }
-
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  #hero { padding: 100px 24px 60px; }
-  #hero::after { display: none; }
-  nav { padding: 0 24px; }
-  .nav-links { gap: 20px; }
-  .section { padding: 72px 24px; }
-  .about-grid, .contact-grid, .project-detail { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 8px; text-align: center; }
-}
-</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">jack<span>.</span>pike</div>
+  <div class="nav-logo">jackson<span>.</span>pike</div>
   <ul class="nav-links">
     <li><a href="#about">about</a></li>
     <li><a href="#projects">projects</a></li>
@@ -735,9 +26,14 @@ footer span { color: var(--dim); }
 <!-- HERO -->
 <section id="hero">
   <div class="hero-eyebrow">CS Student · BYU–Hawaii · Dec 2026</div>
-  <h1 class="hero-name">Jack <em>Pike</em><span class="cursor"></span></h1>
+  <h1 class="hero-name">Jackson <em>Pike</em><span class="cursor"></span></h1>
   <p class="hero-title">Software Engineer &nbsp;/&nbsp; Systems Thinker &nbsp;/&nbsp; Builder</p>
   <p class="hero-bio">
+    Since longer than I can remember, I have had an uncontrollable desire to understand 
+    how things work. The things we’ve built as humans continues to fascinate me, 
+    and instills in me an innate curiosity for the unknown.
+  </p>
+    <p class="hero-bio">
     I've been building things with code since I was 14 —
     not because I was told to, but because I kept running into problems that needed solving.
     I'm a <strong>CS senior at BYU–Hawaii</strong>, graduating December 2026,
@@ -770,15 +66,13 @@ footer span { color: var(--dim); }
           until something complex feels simple.
         </p>
         <p>
-          I work two jobs alongside school — <strong>CS tutor</strong> for the department and
+          I work two jobs alongside school — <strong>CS tutor and teaching assistant</strong> for the department and
           part-time at McDonald's — because Laʻie is expensive and my wife Britlyn and I are
-          making it work. That context shapes how I think about software: I care about things
-          that actually work for real people in real constraints.
+          making it work.
         </p>
         <p>
           Outside of code I'm interested in language — how it carries power, how it shifts
-          meaning. I've been slowly getting my Spanish back. I take notes obsessively in Obsidian.
-          I think networked knowledge and genealogical research have more in common than most people realize.
+          meaning.
         </p>
       </div>
 
@@ -793,15 +87,16 @@ footer span { color: var(--dim); }
         </div>
         <div class="fact">
           <div class="fact-label">Courses</div>
+          <!-- TO DO: Update Courses-->
           <div class="fact-value">IT 327 · CS 301 · CS 210 · CS 320</div>
         </div>
         <div class="fact">
           <div class="fact-label">Roles</div>
-          <div class="fact-value">CS Dept. Tutor · McDonald's</div>
+          <div class="fact-value">CS Dept. Tutor · TA</div>
         </div>
         <div class="fact">
           <div class="fact-label">Interests</div>
-          <div class="fact-value">Systems design · Spanish · Obsidian / PKM</div>
+          <div class="fact-value">Systems design · OOP · Spanish</div>
         </div>
         <div class="fact">
           <div class="fact-label">Location</div>
@@ -838,7 +133,8 @@ footer span { color: var(--dim); }
             <span class="ptag ptag-green">Side Project</span>
             <span class="ptag ptag-blue">AI Integration</span>
             <span class="ptag ptag-amber">Canvas LMS</span>
-            <span class="ptag ptag-purple">Ruby on Rails</span>
+            <span class="ptag ptag-purple">Python / Flask</span>
+            <span class="ptag ptag-green">In Development</span>
           </div>
           <div class="project-name">AI Grading Portal</div>
           <div class="project-desc">
@@ -855,31 +151,40 @@ footer span { color: var(--dim); }
         <div class="project-insight">
           <div class="pi-label">WHY IT EXISTS</div>
           <div class="pi-text">
-            Grading student submissions is slow, inconsistent, and mentally taxing.
-            This tool pulls assignments from <strong>Canvas via API</strong>, runs them through an
-            AI model with rubric context, and surfaces a draft score + feedback for the instructor to
+            <p>This semester, I'm assigned to grade student submissions for their introductory HTML and CSS course. 
+            The instructor gives clear instructions and an equally clear rubric. The students develop git and github 
+            competency and post their web pages live through github pages. 
+
+            My normal workflow, while simple, was also tedius and repetitive. Scanning HTML and CSS source code - for 20+ assignments, 
+            I quickly realized that this felt inefficent. So, I had an idea - build an app that could take in a students live URL, 
+            fetch the HTML and CSS source code, and scan it for the required HTML tags, css properties, etc.
+
+            The initial idea morphed into a full grading portal - with now full integration with Canvas by Instructure. 
+            My tool pulls assignments from <strong>Canvas via API</strong>, runs them through an
+            AI model (Claude API) with rubric context, and surfaces a draft score + feedback for me to
             review and approve. The human stays in the loop — the AI handles the first pass.
+
+            Finally, I can fully edit the score and feedback for each rubric criteron (pulled from Canvas), and then post 
+            that final grade and feedback seemlessly back to canvas, all without leaving the portal. 
+            </p>
           </div>
         </div>
         <div class="project-detail">
           <div class="detail-block">
             <h4>What it does</h4>
             <ul>
-              <li>Authenticates with Canvas LMS via OAuth</li>
               <li>Fetches student submissions per assignment</li>
-              <li>Sends submissions + rubric to AI model</li>
+              <li>Sends HTML and CSS source code + rubric to AI model</li>
               <li>Returns draft grade + written feedback</li>
-              <li>Instructor reviews, edits, and posts back to Canvas</li>
+              <li>Human reviews, edits, and posts back to Canvas (Pushes automatically to SpeedGrader with full Rubric Feeback</li>
             </ul>
           </div>
           <div class="detail-block">
             <h4>Stack</h4>
             <ul>
-              <li>Ruby on Rails backend</li>
+              <li>Python backend, locally hosted</li>
               <li>Canvas LMS REST API</li>
               <li>AI model integration</li>
-              <li>PostgreSQL</li>
-              <li>Deployed on Render</li>
             </ul>
           </div>
         </div>
@@ -892,13 +197,15 @@ footer span { color: var(--dim); }
         <div class="project-header-left">
           <div class="project-tag-row">
             <span class="ptag ptag-blue">Class Project · CS 401</span>
-            <span class="ptag ptag-purple">Ruby on Rails</span>
-            <span class="ptag ptag-red">Full Stack</span>
+            <span class="ptag ptag-purple">Ruby on Rails (Rails 8)</span>
+            <span class="ptag ptag-red">GitHub OAuth</span>
           </div>
           <div class="project-name">Enrollr</div>
           <div class="project-desc">
             A student enrollment system built from scratch in Ruby on Rails —
-            modeled after real university course registration flows.
+            modeled after real university course registration flows. Includes
+            course pre-requisite enforcement, multi-section offerings, role-based access control,
+            and optional GitHub OAuth for user accounts. 
           </div>
         </div>
         <div class="project-meta">
@@ -908,22 +215,26 @@ footer span { color: var(--dim); }
       </div>
       <div class="project-body">
         <div class="project-insight">
-          <div class="pi-label">WHAT I BUILT</div>
+          <div class="pi-label">THE PROBLEM </div>
           <div class="pi-text">
-            Full CRUD application handling <strong>students, courses, sections, and enrollment records</strong>
-            with role-based access for admins vs. students. Designed the data model, built the API layer,
-            and wired up the frontend views — end to end.
+            Our existing university registration system is notoriously clunky. The university has been working for years
+            on migrating to a new system. However, for now the old remains. I wanted to understand the problems and challenges
+            facing them, which could perhaps explain why its taken this long to modernize, so I chose Enrollr for my semester-long
+            project for my senior-level Web App Design course. 
+
+            Enrollr has full CRUD application handling <strong>students, courses, sections, and enrollment records</strong>
+            with role-based access for admins vs. students.
           </div>
         </div>
         <div class="project-detail">
           <div class="detail-block">
             <h4>Features</h4>
             <ul>
-              <li>Student and admin authentication</li>
+              <li>Rails email/password auth | GitHub OAuth</li>
               <li>Course catalog with section management</li>
-              <li>Enrollment / drop / waitlist logic</li>
+              <li>Enrollment / drop / capacity enforcement</li>
               <li>Prerequisite enforcement</li>
-              <li>Admin dashboard with reporting</li>
+              <li>Avo Admin Portal </li>
             </ul>
           </div>
           <div class="detail-block">
@@ -931,9 +242,10 @@ footer span { color: var(--dim); }
             <ul>
               <li>Ruby on Rails (MVC)</li>
               <li>PostgreSQL</li>
-              <li>Devise for auth</li>
-              <li>ERB + Tailwind</li>
-              <li>RSpec test suite</li>
+              <li>Rails 8 built-in auth (has_secure_password, Session model)</li>
+              <li>Bootstrap</li>
+              <li>Minitests / Rails system tests</li>
+
             </ul>
           </div>
         </div>
@@ -1212,12 +524,12 @@ footer span { color: var(--dim); }
       <div class="contact-links reveal">
         <a href="mailto:your@email.com" class="contact-link">
           <div class="cl-platform">Email</div>
-          <div class="cl-value">your@email.com</div>
+          <div class="cl-value">jacksonmpike@gmail.com</div>
           <div class="cl-arrow">↗</div>
         </a>
         <a href="https://github.com/yourusername" target="_blank" class="contact-link">
           <div class="cl-platform">GitHub</div>
-          <div class="cl-value">github.com/yourusername</div>
+          <div class="cl-value">github.com/Jackson-Pike</div>
           <div class="cl-arrow">↗</div>
         </a>
         <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">
@@ -1234,6 +546,25 @@ footer span { color: var(--dim); }
   <span>Jack Pike · BYU–Hawaii · CS 2026</span>
   <span>Built by hand.</span>
 </footer>
+
+<!-- CREEPER EASTER EGG -->
+<div id="creeper-overlay" aria-hidden="true">
+  <svg class="creeper-face" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+    <rect width="8" height="8" fill="#4ade80"/>
+    <!-- eyes -->
+    <rect x="1" y="1" width="2" height="2" fill="#0b0d10"/>
+    <rect x="5" y="1" width="2" height="2" fill="#0b0d10"/>
+    <!-- nose -->
+    <rect x="3" y="3" width="2" height="1" fill="#0b0d10"/>
+    <!-- mouth -->
+    <rect x="2" y="4" width="4" height="1" fill="#0b0d10"/>
+    <rect x="2" y="5" width="1" height="1" fill="#0b0d10"/>
+    <rect x="5" y="5" width="1" height="1" fill="#0b0d10"/>
+    <rect x="1" y="6" width="2" height="1" fill="#0b0d10"/>
+    <rect x="5" y="6" width="2" height="1" fill="#0b0d10"/>
+  </svg>
+  <div class="creeper-label">Creeper? Aww man.</div>
+</div>
 
 <script>
   // Project card toggle
@@ -1261,6 +592,53 @@ footer span { color: var(--dim); }
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Konami code easter egg
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
+  let konamiIdx = 0;
+
+  document.addEventListener('keydown', (e) => {
+    konamiIdx = (e.code === KONAMI[konamiIdx]) ? konamiIdx + 1 : (e.code === KONAMI[0] ? 1 : 0);
+    if (konamiIdx === KONAMI.length) {
+      konamiIdx = 0;
+      triggerCreeper();
+    }
+  });
+
+  function triggerCreeper() {
+    // Synthesize hiss with Web Audio API
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const len = Math.floor(ctx.sampleRate * 1.8);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 900;
+      filter.Q.value = 0.4;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.35, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.8);
+
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+    } catch (_) {}
+
+    // Show overlay
+    const overlay = document.getElementById('creeper-overlay');
+    overlay.classList.remove('active');
+    void overlay.offsetWidth;
+    overlay.classList.add('active');
+    setTimeout(() => overlay.classList.remove('active'), 2800);
+  }
 </script>
 
 </body>
