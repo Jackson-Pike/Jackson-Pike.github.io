@@ -763,6 +763,46 @@ footer span { color: var(--dim); }
   100% { opacity: 0; }
 }
 
+/* ── PROJECT REPO LINK ── */
+.project-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 2px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.project-repo-link:hover {
+  color: var(--text);
+  border-color: var(--border2);
+  background: var(--bg3);
+}
+
+.project-repo-link svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Pastebin link in code filename bar */
+.code-filename a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.code-filename a:hover { color: var(--text); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
   #hero { padding: 100px 24px 60px; }
