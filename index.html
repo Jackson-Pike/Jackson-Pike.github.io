@@ -78,7 +78,7 @@
         <div class="fact">
           <div class="fact-label">Courses</div>
           <!-- TO DO: Update Courses-->
-          <div class="fact-value">IT 327 · CS 301 · CS 210 · CS 320</div>
+          <div class="fact-value">Data Structures and Algorithms · Object-Oriented I &amp; II · Computer Theory · Discrete Math I &amp II · Advanced Web App Development</div>
         </div>
         <div class="fact">
           <div class="fact-label">Roles</div>
@@ -116,132 +116,201 @@
     </p>
 
     <!-- AI Grading Portal -->
-    <div class="project-card featured reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="project-header-left">
-          <div class="project-tag-row">
-            <span class="ptag ptag-green">Side Project</span>
-            <span class="ptag ptag-blue">AI Integration</span>
-            <span class="ptag ptag-amber">Canvas LMS</span>
-            <span class="ptag ptag-purple">Python / Flask</span>
-            <span class="ptag ptag-green">In Development</span>
+    <div class="project-card featured reveal">
+      <div class="project-card-left">
+        <div class="project-header">
+          <div class="project-header-left">
+            <div class="project-tag-row">
+              <span class="ptag ptag-green">Side Project</span>
+              <span class="ptag ptag-blue">AI Integration</span>
+              <span class="ptag ptag-amber">Canvas LMS</span>
+              <span class="ptag ptag-purple">Python / Flask</span>
+              <span class="ptag ptag-green">In Development</span>
+            </div>
+            <div class="project-name">AI Grading Portal</div>
+            <div class="project-desc">
+              An AI-assisted grading workflow tool integrated with Canvas LMS —
+              built to solve a real problem I watched CS tutors deal with every week.
+            </div>
           </div>
-          <div class="project-name">AI Grading Portal</div>
-          <div class="project-desc">
-            An AI-assisted grading workflow tool integrated with Canvas LMS —
-            built to solve a real problem I watched CS tutors deal with every week.
+          <div class="project-meta">
+            <span class="project-year">2025–2026</span>
+            <a href="https://github.com/Jackson-Pike/cs140-ai-grade-assist-portal" target="_blank" class="project-repo-link">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+              GitHub
+            </a>
           </div>
         </div>
-        <div class="project-meta">
-          <span class="project-year">2025–2026</span>
-          <a href="https://github.com/Jackson-Pike/cs140-ai-grade-assist-portal" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-          <span class="project-toggle">▼</span>
+        <div class="project-body">
+          <div class="project-insight">
+            <div class="pi-label">WHY IT EXISTS</div>
+            <div class="pi-text">
+              <p>This semester, I'm assigned to grade student submissions for their introductory HTML and CSS course.
+              The instructor gives clear instructions and an equally clear rubric. The students develop git and github
+              competency and post their web pages live through github pages.
+
+              My normal workflow, while simple, was also tedius and repetitive. Scanning HTML and CSS source code - for 20+ assignments,
+              I quickly realized that this felt inefficent. So, I had an idea - build an app that could take in a students live URL,
+              fetch the HTML and CSS source code, and scan it for the required HTML tags, css properties, etc.
+
+              The initial idea morphed into a full grading portal - with now full integration with Canvas by Instructure.
+              My tool pulls assignments from <strong>Canvas via API</strong>, runs them through an
+              AI model (Claude API) with rubric context, and surfaces a draft score + feedback for me to
+              review and approve. The human stays in the loop — the AI handles the first pass.
+
+              Finally, I can fully edit the score and feedback for each rubric criteron (pulled from Canvas), and then post
+              that final grade and feedback seemlessly back to canvas, all without leaving the portal.
+              </p>
+            </div>
+          </div>
+          <div class="project-detail">
+            <div class="detail-block">
+              <h4>What it does</h4>
+              <ul>
+                <li>Fetches student submissions per assignment</li>
+                <li>Sends HTML and CSS source code + rubric to AI model</li>
+                <li>Returns draft grade + written feedback</li>
+                <li>Human reviews, edits, and posts back to Canvas SpeedGrader with full rubric feedback</li>
+              </ul>
+            </div>
+            <div class="detail-block">
+              <h4>Stack</h4>
+              <ul>
+                <li>Python / Flask, locally hosted</li>
+                <li>Canvas LMS REST API</li>
+                <li>Claude API (AI model integration)</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="project-body">
-        <div class="project-insight">
-          <div class="pi-label">WHY IT EXISTS</div>
-          <div class="pi-text">
-            <p>This semester, I'm assigned to grade student submissions for their introductory HTML and CSS course. 
-            The instructor gives clear instructions and an equally clear rubric. The students develop git and github 
-            competency and post their web pages live through github pages. 
-
-            My normal workflow, while simple, was also tedius and repetitive. Scanning HTML and CSS source code - for 20+ assignments, 
-            I quickly realized that this felt inefficent. So, I had an idea - build an app that could take in a students live URL, 
-            fetch the HTML and CSS source code, and scan it for the required HTML tags, css properties, etc.
-
-            The initial idea morphed into a full grading portal - with now full integration with Canvas by Instructure. 
-            My tool pulls assignments from <strong>Canvas via API</strong>, runs them through an
-            AI model (Claude API) with rubric context, and surfaces a draft score + feedback for me to
-            review and approve. The human stays in the loop — the AI handles the first pass.
-
-            Finally, I can fully edit the score and feedback for each rubric criteron (pulled from Canvas), and then post 
-            that final grade and feedback seemlessly back to canvas, all without leaving the portal. 
-            </p>
+      <div class="project-card-right">
+        <div class="media-carousel">
+          <div class="carousel-track">
+            <figure class="carousel-slide">
+              <video autoplay muted playsinline loop>
+                <source src="assets/ai-grading/grade-assist-demo.mp4" type="video/mp4">
+              </video>
+              <figcaption>Live demo</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/ai-grading/welcome-page.png" alt="Portal home — assignment selection" loading="lazy" />
+              <figcaption>Portal home — assignment selection</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/ai-grading/fetch-submission.png" alt="Submissions pulled from Canvas API" loading="lazy" />
+              <figcaption>Submissions pulled from Canvas API</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/ai-grading/rubric-autopopulation.png" alt="AI auto-populates rubric criteria" loading="lazy" />
+              <figcaption>AI auto-populates rubric criteria and feedback</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/ai-grading/rubric_sanatized.png" alt="Reviewed grade ready to post" loading="lazy" />
+              <figcaption>Manual grade and feedback review</figcaption>
+            </figure>
           </div>
-        </div>
-        <div class="project-detail">
-          <div class="detail-block">
-            <h4>What it does</h4>
-            <ul>
-              <li>Fetches student submissions per assignment</li>
-              <li>Sends HTML and CSS source code + rubric to AI model</li>
-              <li>Returns draft grade + written feedback</li>
-              <li>Human reviews, edits, and posts back to Canvas (Pushes automatically to SpeedGrader with full Rubric Feeback</li>
-            </ul>
-          </div>
-          <div class="detail-block">
-            <h4>Stack</h4>
-            <ul>
-              <li>Python backend, locally hosted</li>
-              <li>Canvas LMS REST API</li>
-              <li>AI model integration</li>
-            </ul>
-          </div>
+          <button class="carousel-btn carousel-prev">&#8249;</button>
+          <button class="carousel-btn carousel-next">&#8250;</button>
+          <div class="carousel-dots"></div>
         </div>
       </div>
     </div>
 
     <!-- Enrollr -->
-    <div class="project-card featured2 reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="project-header-left">
-          <div class="project-tag-row">
-            <span class="ptag ptag-blue">Class Project · CS 401</span>
-            <span class="ptag ptag-purple">Ruby on Rails (Rails 8)</span>
-            <span class="ptag ptag-red">GitHub OAuth</span>
+    <div class="project-card featured2 reveal">
+      <div class="project-card-left">
+        <div class="project-header">
+          <div class="project-header-left">
+            <div class="project-tag-row">
+              <span class="ptag ptag-blue">Class Project · CS 401</span>
+              <span class="ptag ptag-purple">Ruby on Rails (Rails 8)</span>
+              <span class="ptag ptag-red">GitHub OAuth</span>
+            </div>
+            <div class="project-name">Enrollr</div>
+            <div class="project-desc">
+              A student enrollment system built from scratch in Ruby on Rails —
+              modeled after real university course registration flows. Includes
+              course pre-requisite enforcement, multi-section offerings, role-based access control,
+              and optional GitHub OAuth for user accounts.
+            </div>
           </div>
-          <div class="project-name">Enrollr</div>
-          <div class="project-desc">
-            A student enrollment system built from scratch in Ruby on Rails —
-            modeled after real university course registration flows. Includes
-            course pre-requisite enforcement, multi-section offerings, role-based access control,
-            and optional GitHub OAuth for user accounts. 
+          <div class="project-meta">
+            <span class="project-year">2025</span>
           </div>
         </div>
-        <div class="project-meta">
-          <span class="project-year">2025</span>
-          <span class="project-toggle">▼</span>
+        <div class="project-body">
+          <div class="project-insight">
+            <div class="pi-label">THE PROBLEM</div>
+            <div class="pi-text">
+              Our existing university registration system is notoriously clunky. The university has been working for years
+              on migrating to a new system. However, for now the old remains. I wanted to understand the problems and challenges
+              facing them, which could perhaps explain why its taken this long to modernize, so I chose Enrollr for my semester-long
+              project for my senior-level Web App Design course.
+
+              Enrollr has full CRUD application handling <strong>students, courses, sections, and enrollment records</strong>
+              with role-based access for admins vs. students.
+            </div>
+          </div>
+          <div class="project-detail">
+            <div class="detail-block">
+              <h4>Features</h4>
+              <ul>
+                <li>Rails email/password auth | GitHub OAuth</li>
+                <li>Course catalog with section management</li>
+                <li>Enrollment / drop / capacity enforcement</li>
+                <li>Prerequisite enforcement</li>
+                <li>Avo Admin Portal</li>
+              </ul>
+            </div>
+            <div class="detail-block">
+              <h4>Stack</h4>
+              <ul>
+                <li>Ruby on Rails (MVC)</li>
+                <li>PostgreSQL</li>
+                <li>Rails 8 built-in auth (has_secure_password, Session model)</li>
+                <li>Bootstrap</li>
+                <li>Minitests / Rails system tests</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="project-body">
-        <div class="project-insight">
-          <div class="pi-label">THE PROBLEM </div>
-          <div class="pi-text">
-            Our existing university registration system is notoriously clunky. The university has been working for years
-            on migrating to a new system. However, for now the old remains. I wanted to understand the problems and challenges
-            facing them, which could perhaps explain why its taken this long to modernize, so I chose Enrollr for my semester-long
-            project for my senior-level Web App Design course. 
-
-            Enrollr has full CRUD application handling <strong>students, courses, sections, and enrollment records</strong>
-            with role-based access for admins vs. students.
+      <div class="project-card-right">
+        <div class="media-carousel">
+          <div class="carousel-track">
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/sign-in-github.png" alt="GitHub OAuth authentication" loading="lazy" />
+              <figcaption>GitHub OAuth authentication</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/courses.png" alt="Course catalog with sections and capacity" loading="lazy" />
+              <figcaption>Course catalog with sections and capacity</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/course-details.png" alt="Course detail — sections, prerequisites, enrollment" loading="lazy" />
+              <figcaption>Course detail — sections, prerequisites, enrollment</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/prerequisite.png" alt="Prerequisite enforcement — blocked enrollment" loading="lazy" />
+              <figcaption>Prerequisite enforcement — blocked enrollment</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/student-profile.png" alt="Student profile — enrolled courses" loading="lazy" />
+              <figcaption>Student profile — enrolled courses</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/admin-dashboard.png" alt="Avo admin dashboard — full data management" loading="lazy" />
+              <figcaption>Avo admin dashboard — full data management</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <img src="assets/enrollr/admin-profile.png" alt="Admin profile — user management and roles" loading="lazy" />
+              <figcaption>Admin profile — user management and roles</figcaption>
+            </figure>
           </div>
-        </div>
-        <div class="project-detail">
-          <div class="detail-block">
-            <h4>Features</h4>
-            <ul>
-              <li>Rails email/password auth | GitHub OAuth</li>
-              <li>Course catalog with section management</li>
-              <li>Enrollment / drop / capacity enforcement</li>
-              <li>Prerequisite enforcement</li>
-              <li>Avo Admin Portal </li>
-            </ul>
-          </div>
-          <div class="detail-block">
-            <h4>Stack</h4>
-            <ul>
-              <li>Ruby on Rails (MVC)</li>
-              <li>PostgreSQL</li>
-              <li>Rails 8 built-in auth (has_secure_password, Session model)</li>
-              <li>Bootstrap</li>
-              <li>Minitests / Rails system tests</li>
-
-            </ul>
-          </div>
+          <button class="carousel-btn carousel-prev">&#8249;</button>
+          <button class="carousel-btn carousel-next">&#8250;</button>
+          <div class="carousel-dots"></div>
         </div>
       </div>
     </div>
@@ -552,12 +621,60 @@
 </div>
 
 <script>
-  // Project card toggle
-  function toggleProject(card) {
-    const wasOpen = card.classList.contains('open');
-    document.querySelectorAll('.project-card').forEach(c => c.classList.remove('open'));
-    if (!wasOpen) card.classList.add('open');
-  }
+  // Carousel
+  document.querySelectorAll('.media-carousel').forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dotsEl = carousel.querySelector('.carousel-dots');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    });
+
+    function goTo(n) {
+      current = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      carousel.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    carousel.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
+    carousel.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
+  });
+
+  // Screenshot lightbox (triggered from carousel slides)
+  (function() {
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    const img = document.createElement('img');
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+
+    document.addEventListener('click', function(e) {
+      const slide = e.target.closest('.carousel-slide');
+      if (slide && e.target.tagName === 'IMG') {
+        img.src = e.target.src;
+        img.alt = e.target.alt;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    overlay.addEventListener('click', function() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
 
   // CC card toggle
   function toggleCard(card) {
@@ -565,6 +682,38 @@
     document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
     if (!wasActive) card.classList.add('active');
   }
+
+  // Screenshot lightbox
+  (function() {
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    const img = document.createElement('img');
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+
+    document.addEventListener('click', function(e) {
+      const item = e.target.closest('.ss-item');
+      if (item) {
+        img.src = item.querySelector('img').src;
+        img.alt = item.querySelector('img').alt;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        e.stopPropagation();
+      }
+    });
+
+    overlay.addEventListener('click', function() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
