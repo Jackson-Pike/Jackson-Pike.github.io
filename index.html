@@ -643,36 +643,56 @@
 
     carousel.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
     carousel.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
+
   });
 
-  // Screenshot lightbox (triggered from carousel slides)
+  // Lightbox (images + video from carousel slides)
   (function() {
     const overlay = document.createElement('div');
     overlay.className = 'lightbox-overlay';
-    const img = document.createElement('img');
-    overlay.appendChild(img);
+    const lbImg = document.createElement('img');
+    const lbVideo = document.createElement('video');
+    lbVideo.controls = true;
+    lbVideo.style.display = 'none';
+    overlay.appendChild(lbImg);
+    overlay.appendChild(lbVideo);
     document.body.appendChild(overlay);
+
+    function close() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      lbVideo.pause();
+      lbVideo.src = '';
+      lbImg.style.display = '';
+      lbVideo.style.display = 'none';
+    }
 
     document.addEventListener('click', function(e) {
       const slide = e.target.closest('.carousel-slide');
-      if (slide && e.target.tagName === 'IMG') {
-        img.src = e.target.src;
-        img.alt = e.target.alt;
+      if (!slide) return;
+      if (e.target.tagName === 'IMG') {
+        lbImg.src = e.target.src;
+        lbImg.alt = e.target.alt;
+        lbImg.style.display = '';
+        lbVideo.style.display = 'none';
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+      } else if (e.target.tagName === 'VIDEO') {
+        lbVideo.src = e.target.querySelector('source').src;
+        lbVideo.style.display = '';
+        lbImg.style.display = 'none';
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        lbVideo.play();
       }
     });
 
-    overlay.addEventListener('click', function() {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
     });
 
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+      if (e.key === 'Escape') close();
     });
   })();
 
@@ -683,37 +703,6 @@
     if (!wasActive) card.classList.add('active');
   }
 
-  // Screenshot lightbox
-  (function() {
-    const overlay = document.createElement('div');
-    overlay.className = 'lightbox-overlay';
-    const img = document.createElement('img');
-    overlay.appendChild(img);
-    document.body.appendChild(overlay);
-
-    document.addEventListener('click', function(e) {
-      const item = e.target.closest('.ss-item');
-      if (item) {
-        img.src = item.querySelector('img').src;
-        img.alt = item.querySelector('img').alt;
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        e.stopPropagation();
-      }
-    });
-
-    overlay.addEventListener('click', function() {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-  })();
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
